@@ -1,30 +1,34 @@
 const search = document.getElementById('search-bar')
 const movies = document.getElementById('movies-container')
+let watchlist = document.getElementsByClassName('watchlist')
 
+let moviesIdArray = []
+let moviesNameArray = []
+let moviesPositionArray = []
+let moviesObject = {
 
+}
 
-
-
-search.addEventListener('input', searchString)
-
+search.addEventListener('keydown', function(event) {
+    if (event.key === "Enter") {
+        searchString()
+    }
+})
 
 async function searchString() {
-    
-    
+
         movies.innerHTML = ``
     
     let stringValue = search.value.replace(/\s/g, "-")
-
     let res = await fetch(`https://www.omdbapi.com/?apikey=8595bd5&?=${stringValue}&s=${stringValue}`)
     let data = await res.json()
-        
     
     for(let i=0 ; i< data.Search.length ; i++) {
-
         
         let res = await fetch(`https://www.omdbapi.com/?apikey=8595bd5&?=${stringValue}&i=${data.Search[i].imdbID}`)
         let dataTwo = await res.json()
-            
+            //console.log(dataTwo)
+
             movies.innerHTML +=    `<div class="first film">
                                     <div class="movie-placeholder">
                                     <img class='movieImg' src='${data.Search[i].Poster}'>
@@ -33,15 +37,42 @@ async function searchString() {
                                         <h3 class="title">${data.Search[i].Title}</h3>
                                         <div class="text-container">
                                             <p class="time">${data.Search[i].Year}</p>
+                                            <p class="rating">${dataTwo.Rated}</p>
                                             <p class="genre">${data.Search[i].Type}</p>
-                                            <p class="watchlist">Watchlist</p>
+                                            <p class="runTime">${dataTwo.Runtime}</p>
+                                            <p class="watchlist ${data.Search[i].imdbID}">Watchlist</p>
                                         </div>
                                     <p class="description">${dataTwo.Plot}</p>
                                         
                                     </div>
                                     </div>`
-        
             
+                moviesIdArray.push(data.Search[i].imdbID)
+                moviesNameArray.push(data.Search[i].Title)
+           
             }
-            }
+
+           for (let x=0; x < watchlist.length ; x++) {
+           watchlist[x].addEventListener('click', toWatchlist)  
+        
+                function toWatchlist() {
+            moviesPositionArray.push(x)
+            selectedMovie(x)
+            
+        } 
+  
+  }      
+  }
+         function selectedMovie(x) {
+
+
+              moviesObject[moviesIdArray[x]] = moviesNameArray[x]
+              console.log(moviesObject)
+              
+              window.localStorage.setItem("movies", JSON.stringify(moviesObject))
+            moviesIdArray = []
+            moviesNameArray = []
+         }   
+
+ 
 
