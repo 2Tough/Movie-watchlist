@@ -7,6 +7,9 @@ let localStorageId = JSON.parse(localStorage.getItem('id'))
 let localStorageMovie = JSON.parse(localStorage.getItem('movies'))
 
 
+console.log(localStorageId[1])
+console.log(localStorageMovie[1])
+
 localStorage.getItem('movies')[0]    
 
 

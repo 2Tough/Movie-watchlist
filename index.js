@@ -2,6 +2,9 @@ const search = document.getElementById('search-bar')
 const movies = document.getElementById('movies-container')
 let watchlist = document.getElementsByClassName('watchlist')
 
+let savedDataID = []
+let savedDataName = []
+
 let moviesIdArray = []
 let moviesNameArray = []
 let moviesPositionArray = []
@@ -67,13 +70,17 @@ async function searchString() {
   }      
   }
          function selectedMovie(x) {
-
-              
+             
+             savedDataID.push(moviesIdArray[9-x])
+             savedDataName.push(moviesNameArray[9-x])
+             
               moviesObject[moviesIdArray[9-x]] = moviesNameArray[9-x]
-              window.localStorage.setItem("movies", JSON.stringify(moviesObject))
+              window.localStorage.setItem("id", JSON.stringify(savedDataID))
+              window.localStorage.setItem("movies", JSON.stringify(savedDataName))
               
               
-              
+            console.log(savedDataID) 
+            console.log(savedDataName) 
 
               
          }   

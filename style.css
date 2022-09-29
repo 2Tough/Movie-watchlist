@@ -5,6 +5,10 @@ html, body {
     font-style: normal;
 }
 
+p>a{
+    color: white;
+}
+
 .container {
     margin: 0 auto;
     margin-top: 50px;
@@ -75,7 +79,7 @@ input {
 .text-container {
     display: flex;
     flex-direction: row;
-    width: 300px;
+    width: 320px;
     justify-content: space-between;
     
 }
@@ -87,7 +91,6 @@ input {
 
 .text-container>p {
     font-size: 12px;
-    padding-right: 1rem;
     margin-bottom: 0; 
     margin-top: 0;
     
@@ -96,13 +99,17 @@ input {
 .description {
     font-size: 14px;
     margin-top: 0.5rem;
-    
-    height: 79px
+    height: 79px;
+    margin-right: 0.5rem;
 }
 
 .movie-placeholder>img {
     object-fit: cover;
     height: 100%;
     
+}
+
+.watchlist {
+    cursor: pointer
 }
 
